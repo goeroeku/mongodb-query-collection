@@ -1,5 +1,13 @@
 db.getCollection("orders").aggregate([
-  { $match: { status: "success" } },
+  {
+    $match: {
+      status: "success",
+      createdAt: {
+        $gte: ISODate("2010-04-29"),
+        $lt: ISODate("2020-05-01")
+      }
+    }
+  },
   {
     $group: {
       _id: { month: { $month: "$createdAt" }, year: { $year: "$createdAt" } },
